@@ -4,7 +4,7 @@ node_modules
 dist
 data
 src/generated
-README.md
+*.md
 .github
 compose.yaml
 *.sqlite
