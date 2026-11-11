@@ -1,0 +1,10 @@
+.git
+.env
+node_modules
+dist
+data
+src/generated
+README.md
+.github
+compose.yaml
+*.sqlite
