@@ -14,7 +14,7 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 | `/config lang <language>`                               | Language of the bot's replies: English, French, or "Default" to go back to the default one (English), which is used until the user chooses otherwise.                                                                                                                |
 | `/config anilist\|myanimelist\|mangacollec [username]`  | Links a profile. Without a username, the profile is unlinked. A user with no setting left is deleted from the database.                                                                                                                                              |
 | `/config delete`                                        | Deletes everything the bot saved about the user.                                                                                                                                                                                                                     |
-| `/profile anilist\|myanimelist\|mangacollec`            | Shares the linked profile in an embed.                                                                                                                                                                                                                               |
+| `/profile anilist\|myanimelist\|mangacollec [user]`     | Shares a linked profile in an embed: the one of the person running the command, or the one of the user given.                                                                                                                                                        |
 | `/help`                                                 | Lists the commands with their arguments and how to use them, and says where to report a problem. Only the person asking sees it. Works on servers that are not initialised yet.                                                                                      |
 
 The bot also shows an activity under its name ("Watching Laid-Back Camp Season 4"), defined in `src/features/presence/model/presence.ts`.
@@ -128,6 +128,7 @@ src/
       factories/         the two kinds of platform: read through an API, or shared as links
       mappers/           conversion of an API answer to the shared profile shape
       platforms/         one platform per file (+ index.ts listing them)
+      share/             what sharing a profile involves: finding the linked username, saying who shares it
       embeds/            profile embeds
     help/
       model/             commands presented, where to report a problem
