@@ -15,7 +15,14 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 | `/profile anilist\|myanimelist\|mangacollec`            | Shares the linked profile in an embed.                                                                                                                                                                                                                               |
 | `/help`                                                 | Lists the commands with their arguments and how to use them, and says where to report a problem. Only the person asking sees it. Works on servers that are not initialised yet.                                                                                      |
 
+The bot also shows an activity under its name ("Watching Laid-Back Camp Season 4"), defined in `src/features/presence/model/presence.ts`.
+
 Commands work on initialised servers and in private conversations. Outside servers, the user must have installed the application on their account ("User Install" has to be enabled in the Discord developer portal).
+
+## Legal
+
+- [Privacy Policy](PRIVACY.md): what the bot stores, what it sends to AniList, and how to have data removed.
+- [Terms of Service](TERMS.md): the conditions for using the bot.
 
 ## Installation
 
@@ -124,6 +131,8 @@ src/
       model/             commands presented, where to report a problem
       usage/             ways of writing a command, read from its definition
       embeds/            help embed
+    presence/
+      model/             activity shown under the name of the bot
 
   services/              access to external systems
     anilist/
