@@ -1,0 +1,60 @@
+# Production launch: `docker compose up -d`
+# The images are built by GitHub Actions (.github/workflows/docker.yml) and pulled from the private GitHub
+# Container Registry: the server must be logged in (docker login ghcr.io) with a token allowed to read packages.
+# DISCORD_TOKEN_PROD and CLIENT_ID_PROD are read from the .env file next to this file (or from the shell).
+#
+# No service publishes a port: nothing is reachable from the host or from outside.
+#
+# The database is the file data/tsuyomi.sqlite, next to this file: the ./data folder of the host is mounted
+# in both services. On Linux it must be writable by user 1000, the one the containers run as:
+#   mkdir -p data && sudo chown 1000:1000 data
+# Backup: copy the file. Import: replace it with a file created by this bot (same tables). Stop the bot
+# first in both cases (docker compose stop bot), then start it again with docker compose up -d.
+name: tsuyomi
+
+services:
+  # One-off job applying the database migrations; the bot only starts once it has succeeded.
+  migrate:
+    image: ghcr.io/yatsuuw/tsuyomi-discord-migrate:latest
+    # Fetches the newest image on every start: updating is `docker compose up -d` again.
+    pull_policy: always
+    volumes:
+      - ./data:/app/data
+    network_mode: none
+    restart: "no"
+
+  bot:
+    image: ghcr.io/yatsuuw/tsuyomi-discord:latest
+    pull_policy: always
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      DISCORD_TOKEN_PROD: ${DISCORD_TOKEN_PROD:?set DISCORD_TOKEN_PROD in .env}
+      CLIENT_ID_PROD: ${CLIENT_ID_PROD:?set CLIENT_ID_PROD in .env}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    # The bot closes its connections on SIGTERM; give it time to do so.
+    stop_grace_period: 15s
+
+    # Memory: the bot uses about 50 MB. The image sets no cap of its own: Node sizes its heap from this
+    # limit. Raise it if the bot joins many servers. No swap, so a leak restarts it instead of thrashing.
+    mem_limit: 160m
+    memswap_limit: 160m
+    pids_limit: 64
+
+    # Nothing but the data folder is writable, and the process holds no privilege.
+    read_only: true
+    tmpfs:
+      - /tmp:size=8m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "3"
