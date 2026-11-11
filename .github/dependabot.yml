@@ -1,0 +1,49 @@
+# Dependabot opens pull requests when a dependency has a newer version. Nothing is merged automatically:
+# each pull request goes through the checks of .github/workflows/checks.yml and is merged by hand.
+#
+# Security alerts and security fixes are not configured here but in the settings of the repository
+# (Settings > Advanced Security).
+version: 2
+
+updates:
+  # Dependencies of the bot (pnpm).
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      # The Prisma packages only work together at the same version, and the Dockerfile deletes some of
+      # their files by name: they are updated in one pull request of their own, to be checked with care.
+      prisma:
+        patterns:
+          - prisma
+          - "@prisma/*"
+      # Every other minor and patch update in a single weekly pull request. Major versions are not
+      # grouped: each one gets its own pull request, since it may need changes in the code.
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+        exclude-patterns:
+          - prisma
+          - "@prisma/*"
+
+  # Actions used by the workflows.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: ci(deps)
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+# The base images of the Dockerfile are not listed: their version goes through the ALPINE build argument,
+# which Dependabot cannot follow. Update it by hand.
