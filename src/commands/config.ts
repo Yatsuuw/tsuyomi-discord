@@ -6,6 +6,7 @@ import { getPlatform, platforms } from '../features/profiles/platforms/index.ts'
 import { DEFAULT_LANG, type Lang, locales } from '../i18n/locales/index.ts';
 import { createTranslator } from '../i18n/translator/createTranslator.ts';
 import { resolveLang } from '../i18n/translator/resolveLang.ts';
+import { forgetUser } from '../services/database/forgetUser.ts';
 import { setUserSetting } from '../services/database/setUserSetting.ts';
 
 /** Value of the language choice that gives up any saved language: the bot goes back to its default one. */
@@ -40,8 +41,14 @@ for (const [key, { name }] of Object.entries(platforms)) {
       ),
   );
 }
+data.addSubcommand((subcommand) =>
+  subcommand.setName('delete').setDescription('Delete everything Tsuyomi saved about you'),
+);
 
-/** /config — saves the language and the profile usernames of the user (one database row per user). */
+/**
+ * /config — saves the language and the profile usernames of the user (one database row per user), or
+ * deletes that row.
+ */
 const config: Command = {
   data: data.toJSON(),
 
@@ -49,6 +56,13 @@ const config: Command = {
     await interaction.deferReply({ flags: MessageFlags.Ephemeral });
     const userId = interaction.user.id;
     const setting = interaction.options.getSubcommand();
+
+    if (setting === 'delete') {
+      await forgetUser(userId);
+      // The saved language is gone with the rest: the confirmation is written in the default one.
+      await interaction.editReply(createTranslator(resolveLang())('config.deleted'));
+      return;
+    }
 
     if (setting === 'lang') {
       const choice = interaction.options.getString('language', true);
