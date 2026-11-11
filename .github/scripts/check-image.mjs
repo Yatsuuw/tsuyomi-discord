@@ -8,9 +8,11 @@ const user = await prisma.user.findUnique({ where: { id: '1' } });
 if (user?.lang !== 'fr') throw new Error(`database: unexpected row ${JSON.stringify(user)}`);
 await prisma.$disconnect();
 
-// The trimmed language data: French dates must be formatted in French.
+// The trimmed language data: French dates and lists (the one of /help) must be formatted in French.
 const date = new Date(Date.UTC(2023, 3, 28)).toLocaleDateString('fr', { dateStyle: 'long', timeZone: 'UTC' });
 if (date !== '28 avril 2023') throw new Error(`language data: got "${date}"`);
+const list = new Intl.ListFormat('fr', { type: 'conjunction' }).format(['a', 'b', 'c']);
+if (list !== 'a, b et c') throw new Error(`language data: got "${list}"`);
 
 // Every command and event must load: a file missing from the image shows up here.
 const { loadModules } = await import('/app/dist/core/client/loadModules.js');
