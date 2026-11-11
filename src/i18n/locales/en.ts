@@ -26,7 +26,8 @@ export const en = {
     'Searches AniList for an anime, a manga, a light novel, a character or a staff member. `query` is a title or a name, in any language, with or without accents. You are the only one to see the list of results: choose one in the menu, then press **{validate}** to post its sheet for everyone.',
   'help.config':
     '`lang` sets the language Tsuyomi answers you in: English, French, or the default one (English). The other subcommands link your profile on a website: `username` is your username there. Leave it out to unlink the profile. `delete` erases everything Tsuyomi saved about you.',
-  'help.profile': 'Shares, in the channel, the profile you linked with `/config`.',
+  'help.profile':
+    'Shares, in the channel, the profile you linked with `/config`. With `user`, shares the profile that person linked instead.',
   'help.help': 'Shows this message. You are the only one to see it.',
   'help.support.title': 'A problem?',
   'help.support.text':
@@ -117,7 +118,9 @@ export const en = {
 
   'profile.notConfigured':
     'You have not linked a {platform} profile yet. Set it with `/config {command}` first.',
+  'profile.notLinked': '{user} has not linked a {platform} profile.',
   'profile.share': '{user} shares their **{platform}** profile.',
+  'profile.shareOther': '{sharer} shares the **{platform}** profile of {user}.',
   'profile.open': 'Open the profile',
   'profile.animeList': 'Anime list',
   'profile.mangaList': 'Manga list',

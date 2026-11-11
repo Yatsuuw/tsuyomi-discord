@@ -28,7 +28,8 @@ export const fr: typeof en = {
     "Recherche sur AniList un animé, un manga, un light novel, un personnage ou un membre du staff. `query` est un titre ou un nom, dans n'importe quelle langue, avec ou sans accents. Vous êtes la seule personne à voir la liste des résultats : choisissez-en un dans le menu, puis appuyez sur **{validate}** pour publier sa fiche pour tout le monde.",
   'help.config':
     "`lang` choisit la langue dans laquelle Tsuyomi vous répond : anglais, français, ou celle par défaut (l'anglais). Les autres sous-commandes lient votre profil sur un site : `username` est votre pseudo sur ce site. Sans pseudo, le profil est dissocié. `delete` efface tout ce que Tsuyomi a enregistré sur vous.",
-  'help.profile': 'Partage dans le salon le profil que vous avez lié avec `/config`.',
+  'help.profile':
+    'Partage dans le salon le profil que vous avez lié avec `/config`. Avec `user`, partage à la place le profil que cette personne a lié.',
   'help.help': 'Affiche ce message. Vous êtes la seule personne à le voir.',
   'help.support.title': 'Un problème ?',
   'help.support.text':
@@ -119,7 +120,9 @@ export const fr: typeof en = {
 
   'profile.notConfigured':
     "Vous n'avez pas encore lié de profil {platform}. Définissez-le d'abord avec `/config {command}`.",
+  'profile.notLinked': "{user} n'a pas lié de profil {platform}.",
   'profile.share': '{user} partage son profil **{platform}**.',
+  'profile.shareOther': '{sharer} partage le profil **{platform}** de {user}.',
   'profile.open': 'Ouvrir le profil',
   'profile.animeList': "Liste d'animés",
   'profile.mangaList': 'Liste de mangas',
