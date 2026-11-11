@@ -23,7 +23,7 @@ export const en = {
   'help.search':
     'Searches AniList for an anime, a manga, a light novel, a character or a staff member. `query` is a title or a name, in any language, with or without accents. You are the only one to see the list of results: choose one in the menu, then press **{validate}** to post its sheet for everyone.',
   'help.config':
-    '`lang` sets the language Tsuyomi answers you in (English by default). The other subcommands link your profile on a website: `username` is your username there. Leave it out to unlink the profile.',
+    '`lang` sets the language Tsuyomi answers you in: English, French, or the default one (English). The other subcommands link your profile on a website: `username` is your username there. Leave it out to unlink the profile.',
   'help.profile': 'Shares, in the channel, the profile you linked with `/config`.',
   'help.help': 'Shows this message. You are the only one to see it.',
   'help.support.title': 'A problem?',
@@ -106,6 +106,7 @@ export const en = {
   'season.FALL': 'Fall',
 
   'config.lang.success': 'Tsuyomi will now talk to you in English.',
+  'config.lang.default': 'Tsuyomi will now talk to you in its default language, English.',
   'config.profile.set': 'Your {platform} profile is now **{username}**.',
   'config.profile.removed': 'Your {platform} profile has been unlinked.',
   'config.invalidUsername': '**{username}** is not a valid {platform} username.',

@@ -3,9 +3,13 @@ import { createCommand } from '../core/builders/createCommand.ts';
 import { UserError } from '../core/errors/UserError.ts';
 import type { Command } from '../core/types/Command.ts';
 import { getPlatform, platforms } from '../features/profiles/platforms/index.ts';
-import { type Lang, locales } from '../i18n/locales/index.ts';
+import { DEFAULT_LANG, type Lang, locales } from '../i18n/locales/index.ts';
 import { createTranslator } from '../i18n/translator/createTranslator.ts';
+import { resolveLang } from '../i18n/translator/resolveLang.ts';
 import { setUserSetting } from '../services/database/setUserSetting.ts';
+
+/** Value of the language choice that gives up any saved language: the bot goes back to its default one. */
+const DEFAULT_CHOICE = 'default';
 
 const data = createCommand('config', 'Configure your language and link your profiles');
 data.addSubcommand((subcommand) =>
@@ -18,7 +22,8 @@ data.addSubcommand((subcommand) =>
         .setDescription('Language to use')
         .setRequired(true)
         .addChoices(
-          Object.entries(locales).map(([value, strings]) => ({ name: strings['lang.name'], value })),
+          { name: `Default (${locales[DEFAULT_LANG]['lang.name']})`, value: DEFAULT_CHOICE },
+          ...Object.entries(locales).map(([value, strings]) => ({ name: strings['lang.name'], value })),
         ),
     ),
 );
@@ -46,9 +51,12 @@ const config: Command = {
     const setting = interaction.options.getSubcommand();
 
     if (setting === 'lang') {
-      const lang = interaction.options.getString('language', true) as Lang;
+      const choice = interaction.options.getString('language', true);
+      const lang = choice === DEFAULT_CHOICE ? null : (choice as Lang);
       await setUserSetting(userId, 'lang', lang);
-      await interaction.editReply(createTranslator(lang)('config.lang.success'));
+      // The confirmation is written in the language that has just been chosen.
+      const reply = createTranslator(resolveLang(lang));
+      await interaction.editReply(reply(lang ? 'config.lang.success' : 'config.lang.default'));
       return;
     }
 
