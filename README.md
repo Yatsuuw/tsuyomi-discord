@@ -13,6 +13,7 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 | `/config lang <language>`                               | Language of the bot's replies (French or English). English until the user chooses otherwise.                                                                                                                                                                         |
 | `/config anilist\|myanimelist\|mangacollec [username]`  | Links a profile. Without a username, the profile is unlinked.                                                                                                                                                                                                        |
 | `/profile anilist\|myanimelist\|mangacollec`            | Shares the linked profile in an embed.                                                                                                                                                                                                                               |
+| `/help`                                                 | Lists the commands with their arguments and how to use them, and says where to report a problem. Only the person asking sees it. Works on servers that are not initialised yet.                                                                                      |
 
 Commands work on initialised servers and in private conversations. Outside servers, the user must have installed the application on their account ("User Install" has to be enabled in the Discord developer portal).
 
@@ -119,6 +120,10 @@ src/
       mappers/           conversion of an API answer to the shared profile shape
       platforms/         one platform per file (+ index.ts listing them)
       embeds/            profile embeds
+    help/
+      model/             commands presented, where to report a problem
+      usage/             ways of writing a command, read from its definition
+      embeds/            help embed
 
   services/              access to external systems
     anilist/
