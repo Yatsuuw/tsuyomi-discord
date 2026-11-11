@@ -3,11 +3,17 @@ import { prisma } from './prisma.ts';
 
 export type UserSetting = Exclude<keyof User, 'id'>;
 
-/** Creates or updates the single settings row of a Discord user. */
+/**
+ * Creates or updates the single settings row of a Discord user. A row left without any setting is deleted:
+ * nothing is kept about a user who has nothing configured any more.
+ */
 export async function setUserSetting(id: string, setting: UserSetting, value: string | null): Promise<void> {
-  await prisma.user.upsert({
+  const user = await prisma.user.upsert({
     where: { id },
     create: { id, [setting]: value },
     update: { [setting]: value },
   });
+
+  const empty = Object.entries(user).every(([column, saved]) => column === 'id' || saved === null);
+  if (empty) await prisma.user.delete({ where: { id } });
 }
