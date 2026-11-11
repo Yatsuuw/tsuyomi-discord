@@ -1,0 +1,8 @@
+# Lets scripts such as "NODE_ENV=production node ..." run identically on Windows, Linux and macOS.
+shellEmulator: true
+
+# Only these dependencies are allowed to run install scripts.
+onlyBuiltDependencies:
+  - "@prisma/engines"
+  - better-sqlite3
+  - prisma

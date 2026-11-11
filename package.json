@@ -1,13 +1,35 @@
 {
-  "name": "Tsuyomi_claude",
+  "name": "tsuyomi",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Discord bot to search anime, manga, characters and staff through AniList, and share AniList, MyAnimeList and Mangacollec profiles.",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=24"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@10.33.2",
+  "scripts": {
+    "dev": "node --env-file=.env --watch src/index.ts",
+    "deploy:local": "node --env-file=.env src/deploy.ts local",
+    "deploy:prod": "node --env-file=.env src/deploy.ts prod",
+    "build": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\" && prisma generate && tsc",
+    "start": "NODE_ENV=production node --env-file-if-exists=.env dist/index.js",
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "discord.js": "14.28.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@types/node": "^24.19.2",
+    "prisma": "7.10.1",
+    "typescript": "^7.0.2"
+  }
 }
