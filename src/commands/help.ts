@@ -8,7 +8,7 @@ import { helpEmbed } from '../features/help/embeds/helpEmbed.ts';
 const help: Command = {
   data: createCommand('help', 'List the commands of Tsuyomi and explain how to use them').toJSON(),
 
-  // The help is what explains that the server must be initialised: it cannot wait for it.
+  // The help is what explains that the server must be initialised with /init setup: it cannot wait for it.
   worksUninitialised: true,
 
   async execute(interaction, { t }) {
