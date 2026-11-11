@@ -18,7 +18,7 @@ This policy explains what Tsuyomi ("the bot"), a Discord bot made and operated f
 | Your Discord user ID                                         | The first time you use `/config`              | To find your settings again                  |
 | The language you chose                                       | `/config lang`                                | To answer you in that language               |
 | Your AniList, MyAnimeList and Mangacollec usernames          | `/config` followed by the name of the website | To share the profile when you run `/profile` |
-| The ID of a server, the Discord user ID of its owner, a date | When a server manager runs `/init`            | To know the bot was set up, and for whom     |
+| The ID of a server, the Discord user ID of its owner, a date | When a server manager runs `/init setup`      | To know the bot was set up, and for whom     |
 
 Nothing else is written to the database. It is a single file kept on a server operated by the author, located in France, of which the author may keep backup copies.
 
@@ -46,16 +46,16 @@ No data is sold, rented or given to anyone else.
 
 Data is kept for as long as the feature it serves needs it, and deleted afterwards, as both the General Data Protection Regulation and the [Discord Developer Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383-Discord-Developer-Terms-of-Service) require.
 
-- **Your settings** are kept until you remove them. As long as one of them remains (a language, or a linked profile), so does the entry holding your Discord user ID. Once none remains, the whole entry is deleted: the bot does not keep a user ID with nothing attached to it.
-- **The record of a server** (its ID and the user ID of its owner) is kept for as long as the bot is on the server. It is deleted when the bot is removed from the server or the server is deleted; if the bot was stopped at that moment, the next time it starts.
+- **Your settings** are kept until you remove them. As long as one of them remains (a language, or a linked profile), so does the entry holding your Discord user ID. Once none remains, or when you run `/config delete`, the whole entry is deleted: the bot does not keep a user ID with nothing attached to it.
+- **The record of a server** (its ID and the user ID of its owner) is kept for as long as the bot is on the server. It is deleted when a server manager runs `/init remove`, when the bot is removed from the server or when the server is deleted; if the bot was stopped at that moment, the next time it starts.
 - **Backup copies** of the database may still hold deleted data until they are replaced.
 
 ## Your choices and rights
 
 - **Unlink a profile:** run `/config anilist`, `/config myanimelist` or `/config mangacollec` without a username.
 - **Forget your language:** run `/config lang` and choose "Default".
-- **Delete everything about you:** do both of the above. Nothing is left, not even your user ID.
-- **Delete the record of your server:** remove the bot from the server.
+- **Delete everything about you:** run `/config delete`. Nothing is left, not even your user ID.
+- **Delete the record of your server:** run `/init remove`, or remove the bot from the server.
 - **Know what is stored about you, have it corrected, or have it deleted for you:** ask the author (see [Contact](#contact)), giving your Discord user ID or the server ID.
 
 These are your rights of access, rectification, erasure and objection under the General Data Protection Regulation, which applies to the bot. You may also lodge a complaint with a data protection authority: the [CNIL](https://www.cnil.fr) in France, or the one of the country where you live. The author handles this data because it is needed to provide the features you ask for.
