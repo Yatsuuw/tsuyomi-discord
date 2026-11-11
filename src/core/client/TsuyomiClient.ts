@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Options } from 'discord.js';
+import { Client, GatewayIntentBits, Options, type PresenceData } from 'discord.js';
 import { handleError } from '../errors/handleError.ts';
 import type { Command } from '../types/Command.ts';
 import type { Event } from '../types/Event.ts';
@@ -8,8 +8,14 @@ import { loadModules } from './loadModules.ts';
 export class TsuyomiClient extends Client {
   readonly commands = new Map<string, Command>();
 
-  constructor() {
+  /**
+   * @param presence Status and activity of the bot. Given here rather than set once connected, it is part
+   * of the identification sent to Discord: Discord keeps it for as long as the session lives and receives
+   * it again whenever a new session has to be opened. It never expires, so nothing refreshes it on a timer.
+   */
+  constructor(presence: PresenceData) {
     super({
+      presence,
       // Slash commands need no privileged data: the server list is enough.
       intents: [GatewayIntentBits.Guilds],
       // Text typed by users is echoed in some replies: it must never ping anyone.
