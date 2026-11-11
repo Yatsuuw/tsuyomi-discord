@@ -16,10 +16,10 @@ export function linkPlatform({ name, pattern, color, links }: LinkPlatformOption
   return {
     name,
     pattern,
-    async render(username, owner, t) {
+    async render(username, share, t) {
       const pages = links(encodeURIComponent(username), t);
       return {
-        embeds: [profileEmbed({ platform: name, username, url: pages[0].url, color }, owner, t)],
+        embeds: [profileEmbed({ platform: name, username, url: pages[0].url, color }, share, t)],
         components: [linkButtons(pages)],
       };
     },

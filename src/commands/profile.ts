@@ -1,24 +1,32 @@
 import { createCommand } from '../core/builders/createCommand.ts';
-import { UserError } from '../core/errors/UserError.ts';
 import type { Command } from '../core/types/Command.ts';
 import { getPlatform, platforms } from '../features/profiles/platforms/index.ts';
+import { linkedUsername } from '../features/profiles/share/linkedUsername.ts';
 
-const data = createCommand('profile', 'Share one of your profiles');
+const data = createCommand('profile', 'Share a profile: yours, or the one another user linked');
 for (const [key, { name }] of Object.entries(platforms)) {
-  data.addSubcommand((subcommand) => subcommand.setName(key).setDescription(`Share your ${name} profile`));
+  data.addSubcommand((subcommand) =>
+    subcommand
+      .setName(key)
+      .setDescription(`Share a ${name} profile`)
+      .addUserOption((option) =>
+        option.setName('user').setDescription(`Whose ${name} profile to share (yours when left empty)`),
+      ),
+  );
 }
 
-/** /profile — posts an embed sharing the profile the user linked with /config. */
+/** /profile — posts an embed sharing a profile linked with /config: the user's own, or another user's. */
 const profile: Command = {
   data: data.toJSON(),
 
   async execute(interaction, { t, user }) {
     const { key, platform } = getPlatform(interaction.options.getSubcommand());
-    const username = user?.[key];
-    if (!username) throw new UserError('profile.notConfigured', { platform: platform.name, command: key });
+    const sharedBy = interaction.user;
+    const share = { owner: interaction.options.getUser('user') ?? sharedBy, sharedBy };
+    const username = await linkedUsername(key, share, user);
 
     await interaction.deferReply();
-    await interaction.editReply(await platform.render(username, interaction.user, t));
+    await interaction.editReply(await platform.render(username, share, t));
   },
 };
 

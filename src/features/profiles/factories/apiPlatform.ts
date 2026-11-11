@@ -36,11 +36,11 @@ export function apiPlatform<U>(options: ApiPlatformOptions<U>): Platform {
       return (await fetchProfile(username))?.username ?? null;
     },
 
-    async render(username, owner, t) {
+    async render(username, share, t) {
       const profile = await fetchProfile(username);
       if (!profile) throw new UserError('config.userNotFound', { platform: name, username });
       return {
-        embeds: [statsProfileEmbed({ platform: name, color, scoreScale }, profile, owner, t)],
+        embeds: [statsProfileEmbed({ platform: name, color, scoreScale }, profile, share, t)],
         components: [linkButtons(links(profile, t))],
       };
     },

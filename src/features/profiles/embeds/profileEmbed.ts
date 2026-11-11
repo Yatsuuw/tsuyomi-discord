@@ -1,6 +1,8 @@
-import { EmbedBuilder, type User } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { createFooter } from '../../../core/builders/createFooter.ts';
 import type { Translator } from '../../../i18n/translator/createTranslator.ts';
+import type { ProfileShare } from '../model/types.ts';
+import { shareSentence } from '../share/shareSentence.ts';
 
 export interface ProfileSummary {
   platform: string;
@@ -13,14 +15,15 @@ export interface ProfileSummary {
   note?: string | null;
 }
 
-/** Base of every shared profile: who shares it, on which platform, and a link to it. */
-export function profileEmbed(profile: ProfileSummary, owner: User, t: Translator): EmbedBuilder {
+/** Base of every shared profile: whose it is, who shares it, on which platform, and a link to it. */
+export function profileEmbed(profile: ProfileSummary, share: ProfileShare, t: Translator): EmbedBuilder {
+  const { owner } = share;
   return new EmbedBuilder()
     .setColor(profile.color)
     .setAuthor({ name: owner.displayName, iconURL: owner.displayAvatarURL() })
     .setTitle(profile.username)
     .setURL(profile.url)
-    .setDescription(t('profile.share', { user: owner.toString(), platform: profile.platform }))
+    .setDescription(shareSentence(share, profile.platform, t))
     .setThumbnail(profile.avatar ?? owner.displayAvatarURL({ size: 256 }))
     .setFooter(createFooter(t, profile.platform, profile.note));
 }

@@ -13,8 +13,16 @@ export interface Platform {
    * not. Only the platforms read through an API can provide it.
    */
   resolve?(username: string): Promise<string | null>;
-  /** Builds the message sharing the profile `username` of the Discord user `owner`. */
-  render(username: string, owner: User, t: Translator): Promise<InteractionEditReplyOptions>;
+  /** Builds the message sharing the profile `username`. */
+  render(username: string, share: ProfileShare, t: Translator): Promise<InteractionEditReplyOptions>;
+}
+
+/** Who is involved when a profile is shared. Both are the same person unless someone shares the profile of another user. */
+export interface ProfileShare {
+  /** Discord user the profile belongs to. */
+  owner: User;
+  /** Discord user posting it. */
+  sharedBy: User;
 }
 
 /** A profile read from the API of a platform, in the shape every platform is converted to. */

@@ -1,10 +1,10 @@
-import type { EmbedBuilder, User } from 'discord.js';
+import type { EmbedBuilder } from 'discord.js';
 import type { Translator } from '../../../i18n/translator/createTranslator.ts';
 import { compactFields } from '../../../utils/discord/compactFields.ts';
 import type { Link } from '../../../utils/discord/linkButtons.ts';
 import { ROW_BREAK } from '../../../utils/discord/rowBreak.ts';
 import { markdownLinks } from '../../../utils/text/markdownLinks.ts';
-import type { Profile, ProfileStyle } from '../model/types.ts';
+import type { Profile, ProfileShare, ProfileStyle } from '../model/types.ts';
 import { profileEmbed } from './profileEmbed.ts';
 
 /** Number of favourites listed in each category. */
@@ -17,7 +17,7 @@ const FAVOURITES_SHOWN = 3;
 export function statsProfileEmbed(
   style: ProfileStyle,
   profile: Profile,
-  owner: User,
+  share: ProfileShare,
   t: Translator,
 ): EmbedBuilder {
   const { anime, manga, favourites } = profile;
@@ -40,7 +40,7 @@ export function statsProfileEmbed(
       avatar: profile.avatar,
       note: memberSince,
     },
-    owner,
+    share,
     t,
   )
     .setImage(profile.banner)
