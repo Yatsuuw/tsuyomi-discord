@@ -16,6 +16,10 @@ jobs:
   # Code quality: formatting, lint rules, Prisma client generation and TypeScript compilation.
   code:
     runs-on: ubuntu-latest
+    # There is no .env file here, and Prisma refuses to generate its client without the address of the
+    # database, even though it never opens it.
+    env:
+      DATABASE_URL: file:./data/tsuyomi.sqlite
     steps:
       - uses: actions/checkout@v7
 
