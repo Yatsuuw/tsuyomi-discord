@@ -5,7 +5,7 @@ export const en = {
   'error.generic': 'An unexpected error occurred. Please try again later.',
   'error.unknownCommand': 'This command no longer exists.',
   'error.notInitialised':
-    'Tsuyomi is not initialised on this server yet. A server manager must run `/init` first.',
+    'Tsuyomi is not initialised on this server yet. A server manager must run `/init setup` first.',
   'error.guildOnly': 'This command can only be used on a server.',
   'error.serviceUnavailable': '{service} is not responding right now. Please try again in a moment.',
   'error.rateLimited': 'Too many requests were sent to {service}. Please try again in a minute.',
@@ -14,16 +14,18 @@ export const en = {
   'footer.credit': 'Bot made by {author}',
 
   'init.success': 'This server is now initialised. Tsuyomi is ready to be used here!',
+  'init.removed':
+    'Everything Tsuyomi saved about this server has been deleted. Its commands will not work here until `/init setup` is run again.',
 
   'help.title': 'Tsuyomi — Help',
   'help.intro':
     'Tsuyomi searches AniList and shares your {platforms} profiles.\n\nIn the commands below, `<argument>` is required and `[argument]` is optional. `a|b` means you choose one of them.',
   'help.init':
-    'Initialises Tsuyomi on the server: until this is done, the other commands are refused there. Reserved to members with the "Manage Server" permission, and not needed in private conversations.',
+    '`setup` initialises Tsuyomi on the server: until this is done, the other commands are refused there. `remove` deletes what Tsuyomi saved about the server (its ID and the ID of its owner), after which it has to be set up again. Reserved to members with the "Manage Server" permission, and not needed in private conversations.',
   'help.search':
     'Searches AniList for an anime, a manga, a light novel, a character or a staff member. `query` is a title or a name, in any language, with or without accents. You are the only one to see the list of results: choose one in the menu, then press **{validate}** to post its sheet for everyone.',
   'help.config':
-    '`lang` sets the language Tsuyomi answers you in: English, French, or the default one (English). The other subcommands link your profile on a website: `username` is your username there. Leave it out to unlink the profile.',
+    '`lang` sets the language Tsuyomi answers you in: English, French, or the default one (English). The other subcommands link your profile on a website: `username` is your username there. Leave it out to unlink the profile. `delete` erases everything Tsuyomi saved about you.',
   'help.profile': 'Shares, in the channel, the profile you linked with `/config`.',
   'help.help': 'Shows this message. You are the only one to see it.',
   'help.support.title': 'A problem?',
@@ -107,6 +109,7 @@ export const en = {
 
   'config.lang.success': 'Tsuyomi will now talk to you in English.',
   'config.lang.default': 'Tsuyomi will now talk to you in its default language, English.',
+  'config.deleted': 'Everything Tsuyomi saved about you has been deleted.',
   'config.profile.set': 'Your {platform} profile is now **{username}**.',
   'config.profile.removed': 'Your {platform} profile has been unlinked.',
   'config.invalidUsername': '**{username}** is not a valid {platform} username.',
