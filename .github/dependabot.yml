@@ -15,6 +15,12 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: chore(deps)
+    ignore:
+      # The Node type declarations must describe the Node version the bot runs on (24, see the Dockerfile):
+      # a newer major would let the code use functions that do not exist at runtime.
+      - dependency-name: "@types/node"
+        update-types:
+          - version-update:semver-major
     groups:
       # The Prisma packages only work together at the same version, and the Dockerfile deletes some of
       # their files by name: they are updated in one pull request of their own, to be checked with care.
