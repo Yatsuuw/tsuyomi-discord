@@ -1,0 +1,49 @@
+import { Client, GatewayIntentBits, Options } from 'discord.js';
+import { handleError } from '../errors/handleError.ts';
+import type { Command } from '../types/Command.ts';
+import type { Event } from '../types/Event.ts';
+import { loadModules } from './loadModules.ts';
+
+/** Discord client holding the commands of the bot. */
+export class TsuyomiClient extends Client {
+  readonly commands = new Map<string, Command>();
+
+  constructor() {
+    super({
+      // Slash commands need no privileged data: the server list is enough.
+      intents: [GatewayIntentBits.Guilds],
+      // Text typed by users is echoed in some replies: it must never ping anyone.
+      allowedMentions: { parse: [] },
+      // The bot never reads messages, members, emojis... so none of them is kept in memory.
+      makeCache: Options.cacheWithLimits({
+        ...Options.DefaultMakeCacheSettings,
+        GuildEmojiManager: 0,
+        GuildMemberManager: { maxSize: 0, keepOverLimit: (member) => member.id === member.client.user.id },
+        GuildStickerManager: 0,
+        MessageManager: 0,
+        ReactionManager: 0,
+        ThreadManager: 0,
+        UserManager: 0,
+      }),
+    });
+  }
+
+  /** Loads every command and event file, then connects to Discord. */
+  async start(token: string): Promise<void> {
+    for (const command of await loadModules<Command>('commands')) {
+      this.commands.set(command.data.name, command);
+    }
+
+    for (const event of await loadModules<Event>('events')) {
+      this[event.once ? 'once' : 'on'](event.name, async (...args) => {
+        try {
+          await event.execute(...args);
+        } catch (error) {
+          await handleError(error);
+        }
+      });
+    }
+
+    await this.login(token);
+  }
+}
