@@ -1,0 +1,29 @@
+generator client {
+  provider               = "prisma-client"
+  output                 = "../src/generated/prisma"
+  runtime                = "nodejs"
+  moduleFormat           = "esm"
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
+  compilerBuild          = "small"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+/// A Discord server on which the bot has been initialised with /init.
+model Guild {
+  id        String   @id
+  ownerId   String
+  createdAt DateTime @default(now())
+}
+
+/// Per-user settings, one row per Discord user.
+model User {
+  id          String  @id
+  lang        String?
+  anilist     String?
+  myanimelist String?
+  mangacollec String?
+}
