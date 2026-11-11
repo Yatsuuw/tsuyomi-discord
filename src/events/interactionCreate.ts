@@ -5,8 +5,8 @@ import { handleError } from '../core/errors/handleError.ts';
 import { UserError } from '../core/errors/UserError.ts';
 import { createTranslator } from '../i18n/translator/createTranslator.ts';
 import { resolveLang } from '../i18n/translator/resolveLang.ts';
+import { findUser } from '../services/database/findUser.ts';
 import { isGuildInitialised } from '../services/database/isGuildInitialised.ts';
-import { prisma } from '../services/database/prisma.ts';
 
 /** Routes slash commands, buttons and menus to their command file. */
 export default defineEvent({
@@ -18,7 +18,7 @@ export default defineEvent({
     // Until the settings of the user are read, errors are reported in the default language.
     let t = createTranslator(resolveLang());
     try {
-      const user = await prisma.user.findUnique({ where: { id: interaction.user.id } });
+      const user = await findUser(interaction.user.id);
       t = createTranslator(resolveLang(user?.lang));
 
       // The custom id of a component starts with the name of the command that created it.
