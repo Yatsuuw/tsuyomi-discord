@@ -40,6 +40,10 @@ To the extent the law allows, the author is not liable for damage resulting from
 
 What the bot does with data is described in the [Privacy Policy](PRIVACY.md).
 
+## Governing law
+
+These terms are governed by French law. If you use the bot as a consumer living in the European Union, you keep the protection of the mandatory rules of the country where you live.
+
 ## Changes
 
 These terms may change. The date at the top tells when they last did, and the history of this file shows what changed. Using the bot after a change means accepting the new terms.
