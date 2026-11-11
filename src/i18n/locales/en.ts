@@ -15,6 +15,21 @@ export const en = {
 
   'init.success': 'This server is now initialised. Tsuyomi is ready to be used here!',
 
+  'help.title': 'Tsuyomi — Help',
+  'help.intro':
+    'Tsuyomi searches AniList and shares your {platforms} profiles.\n\nIn the commands below, `<argument>` is required and `[argument]` is optional. `a|b` means you choose one of them.',
+  'help.init':
+    'Initialises Tsuyomi on the server: until this is done, the other commands are refused there. Reserved to members with the "Manage Server" permission, and not needed in private conversations.',
+  'help.search':
+    'Searches AniList for an anime, a manga, a light novel, a character or a staff member. `query` is a title or a name, in any language, with or without accents. You are the only one to see the list of results: choose one in the menu, then press **{validate}** to post its sheet for everyone.',
+  'help.config':
+    '`lang` sets the language Tsuyomi answers you in (English by default). The other subcommands link your profile on a website: `username` is your username there. Leave it out to unlink the profile.',
+  'help.profile': 'Shares, in the channel, the profile you linked with `/config`.',
+  'help.help': 'Shows this message. You are the only one to see it.',
+  'help.support.title': 'A problem?',
+  'help.support.text':
+    'Open an issue on [GitHub]({url}), or contact the author of the bot on Discord: **{contact}**.',
+
   'type.anime': 'Anime',
   'type.manga': 'Manga',
   'type.novel': 'Light novel',
