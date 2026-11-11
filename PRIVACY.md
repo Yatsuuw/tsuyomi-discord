@@ -13,12 +13,12 @@ This policy explains what Tsuyomi ("the bot"), a Discord bot made and operated f
 
 ## Data the bot stores
 
-| Data                                                         | When                                          | Why                                          |
-| ------------------------------------------------------------ | --------------------------------------------- | -------------------------------------------- |
-| Your Discord user ID                                         | The first time you use `/config`              | To find your settings again                  |
-| The language you chose                                       | `/config lang`                                | To answer you in that language               |
-| Your AniList, MyAnimeList and Mangacollec usernames          | `/config` followed by the name of the website | To share the profile when you run `/profile` |
-| The ID of a server, the Discord user ID of its owner, a date | When a server manager runs `/init setup`      | To know the bot was set up, and for whom     |
+| Data                                                         | When                                          | Why                                         |
+| ------------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
+| Your Discord user ID                                         | The first time you use `/config`              | To find your settings again                 |
+| The language you chose                                       | `/config lang`                                | To answer you in that language              |
+| Your AniList, MyAnimeList and Mangacollec usernames          | `/config` followed by the name of the website | To share the profile when `/profile` is run |
+| The ID of a server, the Discord user ID of its owner, a date | When a server manager runs `/init setup`      | To know the bot was set up, and for whom    |
 
 Nothing else is written to the database. It is a single file kept on a server operated by the author, located in France, of which the author may keep backup copies.
 
@@ -40,7 +40,7 @@ No data is sold, rented or given to anyone else.
 
 ## What becomes public
 
-`/profile` posts your linked profile in the channel where you run it, for everyone there to see, along with your Discord display name and avatar. A sheet validated after a `/search` is public too. Everything else the bot answers is visible only to you.
+`/profile` posts a linked profile in the channel where it is run, for everyone there to see, along with the Discord display name and avatar of its owner. You can post your own, and so can anyone else by naming you in the command: a profile you link can be shown by any user of the bot who can select you, on a server you share or in a private conversation with you. If you do not want that, do not link the profile, or unlink it. A sheet validated after a `/search` is public too. Everything else the bot answers is visible only to you.
 
 ## How long data is kept
 
