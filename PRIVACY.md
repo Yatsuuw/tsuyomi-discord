@@ -6,7 +6,7 @@ This policy explains what Tsuyomi ("the bot"), a Discord bot made and operated f
 
 ## Summary
 
-- The bot stores only what you give it through its commands: your language and the usernames of the profiles you link.
+- The bot stores only what you give it through its commands: your language, the usernames of the profiles you link, and whether you let others share them.
 - It never reads messages, member lists or anything else on a server.
 - It deletes what it no longer needs: your entry once you have nothing configured, the record of a server once the bot has left it.
 - It sells nothing, shows no advertising and runs no analytics.
@@ -18,6 +18,7 @@ This policy explains what Tsuyomi ("the bot"), a Discord bot made and operated f
 | Your Discord user ID                                         | The first time you use `/config`              | To find your settings again                 |
 | The language you chose                                       | `/config lang`                                | To answer you in that language              |
 | Your AniList, MyAnimeList and Mangacollec usernames          | `/config` followed by the name of the website | To share the profile when `/profile` is run |
+| That you let other users share your profiles                 | `/config sharing`, when you allow it          | To let them post your profiles              |
 | The ID of a server, the Discord user ID of its owner, a date | When a server manager runs `/init setup`      | To know the bot was set up, and for whom    |
 
 Nothing else is written to the database. It is a single file kept on a server operated by the author, located in France, of which the author may keep backup copies.
@@ -40,13 +41,18 @@ No data is sold, rented or given to anyone else.
 
 ## What becomes public
 
-`/profile` posts a linked profile in the channel where it is run, for everyone there to see, along with the Discord display name and avatar of its owner. You can post your own, and so can anyone else by naming you in the command: a profile you link can be shown by any user of the bot who can select you, on a server you share or in a private conversation with you. If you do not want that, do not link the profile, or unlink it. A sheet validated after a `/search` is public too. Everything else the bot answers is visible only to you.
+`/profile` posts a linked profile in the channel where it is run, for everyone there to see, along with the Discord display name and avatar of its owner.
+
+- **By default, only you can post your profiles.** Nobody else can make the bot show them.
+- **If you allow it with `/config sharing`**, any user of the bot who can select you (on a server you share, or in a private conversation with you) can post them too by naming you in `/profile`. You can withdraw that permission at any time with the same command.
+
+A sheet validated after a `/search` is public too. Everything else the bot answers is visible only to you.
 
 ## How long data is kept
 
 Data is kept for as long as the feature it serves needs it, and deleted afterwards, as both the General Data Protection Regulation and the [Discord Developer Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383-Discord-Developer-Terms-of-Service) require.
 
-- **Your settings** are kept until you remove them. As long as one of them remains (a language, or a linked profile), so does the entry holding your Discord user ID. Once none remains, or when you run `/config delete`, the whole entry is deleted: the bot does not keep a user ID with nothing attached to it.
+- **Your settings** are kept until you remove them. As long as one of them remains (a language, a linked profile, or the permission to share), so does the entry holding your Discord user ID. Once none remains, or when you run `/config delete`, the whole entry is deleted: the bot does not keep a user ID with nothing attached to it.
 - **The record of a server** (its ID and the user ID of its owner) is kept for as long as the bot is on the server. It is deleted when a server manager runs `/init remove`, when the bot is removed from the server or when the server is deleted; if the bot was stopped at that moment, the next time it starts.
 - **Backup copies** of the database may still hold deleted data until they are replaced.
 
@@ -54,6 +60,7 @@ Data is kept for as long as the feature it serves needs it, and deleted afterwar
 
 - **Unlink a profile:** run `/config anilist`, `/config myanimelist` or `/config mangacollec` without a username.
 - **Forget your language:** run `/config lang` and choose "Default".
+- **Stop others from sharing your profiles:** run `/config sharing` and choose "False". This is how things are until you choose otherwise.
 - **Delete everything about you:** run `/config delete`. Nothing is left, not even your user ID.
 - **Delete the record of your server:** run `/init remove`, or remove the bot from the server.
 - **Know what is stored about you, have it corrected, or have it deleted for you:** ask the author (see [Contact](#contact)), giving your Discord user ID or the server ID.
