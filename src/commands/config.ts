@@ -5,11 +5,15 @@ import { platforms } from '../features/profiles/platforms/index.ts';
 import { deleteSettings } from '../features/settings/actions/deleteSettings.ts';
 import { linkProfile } from '../features/settings/actions/linkProfile.ts';
 import { setLanguage } from '../features/settings/actions/setLanguage.ts';
+import { setSharing } from '../features/settings/actions/setSharing.ts';
 import { DEFAULT_LANGUAGE_CHOICE } from '../features/settings/model/constants.ts';
 import type { SettingAction } from '../features/settings/model/types.ts';
 import { DEFAULT_LANG, locales } from '../i18n/locales/index.ts';
 
-const data = createCommand('config', 'Configure your language and link your profiles');
+const data = createCommand(
+  'config',
+  'Configure your language, link your profiles and decide who shares them',
+);
 data.addSubcommand((subcommand) =>
   subcommand
     .setName('lang')
@@ -39,12 +43,24 @@ for (const [key, { name }] of Object.entries(platforms)) {
   );
 }
 data.addSubcommand((subcommand) =>
+  subcommand
+    .setName('sharing')
+    .setDescription('Choose whether other users may share your linked profiles (they may not by default)')
+    .addBooleanOption((option) =>
+      option
+        .setName('allow')
+        .setDescription('True to let other users share your profiles, False to stop them')
+        .setRequired(true),
+    ),
+);
+data.addSubcommand((subcommand) =>
   subcommand.setName('delete').setDescription('Delete everything Tsuyomi saved about you'),
 );
 
 /** What each subcommand does. The ones named after a platform are not listed: they all link a profile. */
 const ACTIONS: Record<string, SettingAction> = {
   lang: setLanguage,
+  sharing: setSharing,
   delete: deleteSettings,
 };
 
