@@ -1,3 +1,4 @@
+import { stripTags } from './stripTags.ts';
 import { truncate } from './truncate.ts';
 
 const ENTITIES: Record<string, string> = {
@@ -16,11 +17,13 @@ const ENTITIES: Record<string, string> = {
 export function cleanDescription(text: string | null, max: number): string | null {
   if (!text) return null;
 
-  const cleaned = text
+  // The tags with an equivalent in Discord markdown are converted, the others are removed.
+  const converted = text
     .replace(/<br\s*\/?>\s*/gi, '\n')
     .replace(/<\/?(i|em)>/gi, '*')
-    .replace(/<\/?(b|strong)>/gi, '**')
-    .replace(/<[^>]+>/g, '')
+    .replace(/<\/?(b|strong)>/gi, '**');
+
+  const cleaned = stripTags(converted)
     .replace(/img\d*%?\([^)]*\)/gi, '')
     .replace(/~!|!~/g, '||')
     .replace(/__/g, '**')
