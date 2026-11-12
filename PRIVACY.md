@@ -2,7 +2,13 @@
 
 Last updated: 12 November 2026
 
-This policy explains what Tsuyomi ("the bot"), a Discord bot made and operated from France by Yatsuu ("the author"), does with data. The bot is a personal, non-commercial project. The author is the person responsible for this data.
+This policy explains what Tsuyomi ("the bot"), a Discord bot, does with data. The bot is a personal, non-commercial project.
+
+## Who is responsible
+
+Tsuyomi is developed and maintained by **Yatsuu** ("the author"), from France. Yatsuu is the data controller within the meaning of the General Data Protection Regulation: the person who decides what the bot does with data and who answers for it.
+
+Contact: <yatsuuw@proton.me>
 
 ## Summary
 
@@ -77,5 +83,8 @@ This policy may change when the bot does. The date at the top tells when it last
 
 ## Contact
 
+Yatsuu, developer and maintainer of the bot, data controller:
+
+- Email: <yatsuuw@proton.me>
 - Discord: `yatsuu`
 - GitHub: open an issue on <https://github.com/yatsuuw/tsuyomi-discord>
