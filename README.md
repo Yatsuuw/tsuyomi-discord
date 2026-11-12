@@ -106,6 +106,21 @@ The bot image holds nothing but what the bot runs on: the Node binary and the li
 
 Adding a language to the bot also means adding it to the `LOCALES` argument of the `Dockerfile`, otherwise its dates and numbers are formatted in English.
 
+## Checks and security
+
+What watches over the code:
+
+| Automation                                              | Runs                                                      | Purpose                                                                                                                                                                                                         |
+| ------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Checks ([`checks.yml`](.github/workflows/checks.yml))   | On every pull request                                     | `code` lints and compiles. `image` builds both Docker images, applies the migrations to an empty database and exercises the image of the bot. Both must pass before a pull request can be merged into `master`. |
+| CodeQL                                                  | On every push to `master`, every pull request, and weekly | Static analysis of the code, looking for vulnerabilities. Its alerts appear in the Security tab.                                                                                                                |
+| Dependabot ([`dependabot.yml`](.github/dependabot.yml)) | Every Monday, and when a vulnerability is published       | Opens pull requests for newer versions of the dependencies and of the GitHub Actions, and raises alerts on known vulnerabilities.                                                                               |
+| Secret scanning                                         | On every push                                             | Refuses a push that contains a token or another secret.                                                                                                                                                         |
+
+Text coming from AniList is cleaned before it is displayed: HTML tags are removed (`src/utils/text/stripTags.ts`) and AniList markup is converted to Discord markdown (`src/utils/text/cleanDescription.ts`).
+
+To report a vulnerability, follow the [Security Policy](SECURITY.md) rather than opening a public issue.
+
 ## Structure
 
 The code is organised in layers: each top-level folder answers a single question, and a layer only imports the ones below it. Apart from the two entry points, a folder holds either files or sub-folders, never both.
@@ -166,7 +181,7 @@ src/
 
   utils/                 generic helpers, independent from the rest of the project
     discord/             message components, embed fields, ephemeral replies
-    text/                text shortening, clean-up and markdown
+    text/                text shortening, clean-up (HTML tags, AniList markup) and markdown
     cache/               in-memory cache
     logging/             logger
 ```
