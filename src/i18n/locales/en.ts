@@ -25,9 +25,9 @@ export const en = {
   'help.search':
     'Searches AniList for an anime, a manga, a light novel, a character or a staff member. `query` is a title or a name, in any language, with or without accents. You are the only one to see the list of results: choose one in the menu, then press **{validate}** to post its sheet for everyone.',
   'help.config':
-    '`lang` sets the language Tsuyomi answers you in: English, French, or the default one (English). The other subcommands link your profile on a website: `username` is your username there. Leave it out to unlink the profile. `delete` erases everything Tsuyomi saved about you.',
+    '`lang` sets the language Tsuyomi answers you in: English, French, or the default one (English). The subcommands named after a website link your profile there: `username` is your username on it. Leave it out to unlink the profile. `sharing` decides whether other users may share your linked profiles: they may not unless you allow it. `delete` erases everything Tsuyomi saved about you.',
   'help.profile':
-    'Shares, in the channel, the profile you linked with `/config`. With `user`, shares the profile that person linked instead.',
+    'Shares, in the channel, the profile you linked with `/config`. With `user`, shares the profile that person linked instead, provided they allowed it with `/config sharing`.',
   'help.help': 'Shows this message. You are the only one to see it.',
   'help.support.title': 'A problem?',
   'help.support.text':
@@ -110,6 +110,8 @@ export const en = {
 
   'config.lang.success': 'Tsuyomi will now talk to you in English.',
   'config.lang.default': 'Tsuyomi will now talk to you in its default language, English.',
+  'config.sharing.on': 'Other users can now share your linked profiles with `/profile`.',
+  'config.sharing.off': 'Other users can no longer share your linked profiles. You still can.',
   'config.deleted': 'Everything Tsuyomi saved about you has been deleted.',
   'config.profile.set': 'Your {platform} profile is now **{username}**.',
   'config.profile.removed': 'Your {platform} profile has been unlinked.',
@@ -118,6 +120,8 @@ export const en = {
 
   'profile.notConfigured':
     'You have not linked a {platform} profile yet. Set it with `/config {command}` first.',
+  'profile.sharingOff':
+    '{user} does not let other users share their profiles. They can allow it with `/config sharing`.',
   'profile.notLinked': '{user} has not linked a {platform} profile.',
   'profile.share': '{user} shares their **{platform}** profile.',
   'profile.shareOther': '{sharer} shares the **{platform}** profile of {user}.',

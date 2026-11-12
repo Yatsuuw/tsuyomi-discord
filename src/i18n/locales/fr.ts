@@ -27,9 +27,9 @@ export const fr: typeof en = {
   'help.search':
     "Recherche sur AniList un animé, un manga, un light novel, un personnage ou un membre du staff. `query` est un titre ou un nom, dans n'importe quelle langue, avec ou sans accents. Vous êtes la seule personne à voir la liste des résultats : choisissez-en un dans le menu, puis appuyez sur **{validate}** pour publier sa fiche pour tout le monde.",
   'help.config':
-    "`lang` choisit la langue dans laquelle Tsuyomi vous répond : anglais, français, ou celle par défaut (l'anglais). Les autres sous-commandes lient votre profil sur un site : `username` est votre pseudo sur ce site. Sans pseudo, le profil est dissocié. `delete` efface tout ce que Tsuyomi a enregistré sur vous.",
+    "`lang` choisit la langue dans laquelle Tsuyomi vous répond : anglais, français, ou celle par défaut (l'anglais). Les sous-commandes portant le nom d'un site y lient votre profil : `username` est votre pseudo sur ce site. Sans pseudo, le profil est dissocié. `sharing` décide si les autres utilisateurs peuvent partager vos profils liés : ils ne le peuvent pas tant que vous ne l'autorisez pas. `delete` efface tout ce que Tsuyomi a enregistré sur vous.",
   'help.profile':
-    'Partage dans le salon le profil que vous avez lié avec `/config`. Avec `user`, partage à la place le profil que cette personne a lié.',
+    "Partage dans le salon le profil que vous avez lié avec `/config`. Avec `user`, partage à la place le profil que cette personne a lié, à condition qu'elle l'ait autorisé avec `/config sharing`.",
   'help.help': 'Affiche ce message. Vous êtes la seule personne à le voir.',
   'help.support.title': 'Un problème ?',
   'help.support.text':
@@ -112,6 +112,9 @@ export const fr: typeof en = {
 
   'config.lang.success': 'Tsuyomi vous parlera désormais en français.',
   'config.lang.default': 'Tsuyomi vous parlera désormais dans sa langue par défaut, le français.',
+  'config.sharing.on': 'Les autres utilisateurs peuvent désormais partager vos profils liés avec `/profile`.',
+  'config.sharing.off':
+    'Les autres utilisateurs ne peuvent plus partager vos profils liés. Vous le pouvez toujours.',
   'config.deleted': 'Tout ce que Tsuyomi avait enregistré sur vous a été supprimé.',
   'config.profile.set': 'Votre profil {platform} est maintenant **{username}**.',
   'config.profile.removed': 'Votre profil {platform} a été dissocié.',
@@ -120,6 +123,8 @@ export const fr: typeof en = {
 
   'profile.notConfigured':
     "Vous n'avez pas encore lié de profil {platform}. Définissez-le d'abord avec `/config {command}`.",
+  'profile.sharingOff':
+    "{user} n'autorise pas les autres utilisateurs à partager ses profils. Cette personne peut l'autoriser avec `/config sharing`.",
   'profile.notLinked': "{user} n'a pas lié de profil {platform}.",
   'profile.share': '{user} partage son profil **{platform}**.',
   'profile.shareOther': '{sharer} partage le profil **{platform}** de {user}.',
