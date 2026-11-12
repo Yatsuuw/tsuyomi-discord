@@ -26,4 +26,7 @@ model User {
   anilist     String?
   myanimelist String?
   mangacollec String?
+  /// Whether other users may share the profiles linked above. Only ever true or absent: refusing is the
+  /// default, and an absent value lets a row with nothing else in it be deleted.
+  allowSharing Boolean?
 }
