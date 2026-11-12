@@ -10,7 +10,7 @@
 #   mkdir -p data && sudo chown 1000:1000 data
 # Backup: copy the file. Import: replace it with a file created by this bot (same tables). Stop the bot
 # first in both cases (docker compose stop bot), then start it again with docker compose up -d.
-name: tsuyomi
+name: discord
 
 services:
   # One-off job applying the database migrations; the bot only starts once it has succeeded.
