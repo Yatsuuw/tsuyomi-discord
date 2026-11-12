@@ -9,6 +9,9 @@ import { type PlatformKey, platforms } from '../platforms/index.ts';
  * telling the person sharing what is missing: how to link their own profile, or that the other user has
  * not linked theirs.
  *
+ * The profile of another user is only given once that user has allowed it with /config sharing. Without
+ * that permission the answer is the same whether a profile is linked or not, so that nothing leaks.
+ *
  * @param sharerSettings Settings of the person sharing, already read to answer in their language.
  */
 export async function linkedUsername(
@@ -18,6 +21,8 @@ export async function linkedUsername(
 ): Promise<string> {
   const own = owner.id === sharedBy.id;
   const settings = own ? sharerSettings : await findUser(owner.id);
+  if (!own && !settings?.allowSharing) throw new UserError('profile.sharingOff', { user: owner.toString() });
+
   const username = settings?.[key];
   if (username) return username;
 
