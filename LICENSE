@@ -1,0 +1,52 @@
+Tsuyomi — Licence
+
+Copyright (c) 2026 Yatsuu. All rights reserved.
+
+This repository is published so that the source code of Tsuyomi can be read
+and so that changes to it can be proposed. It is not open source: the code may
+not be reused.
+
+1. What you may do
+
+   - Read the source code.
+   - Fork this repository on GitHub and modify your fork for the sole purpose
+     of proposing changes to this project, through issues and pull requests
+     opened on this repository.
+   - Run the code privately, to the extent needed to prepare and test such a
+     proposal.
+
+2. What you may not do
+
+   Without the prior written permission of the author, you may not:
+
+   - use the code, in whole or in part, in another project, product or
+     service;
+   - run, host or offer the bot, or a modified version of it, to others;
+   - copy, redistribute, sublicense or sell the code or anything derived from
+     it;
+   - remove or alter this notice.
+
+   Everything that is not expressly permitted in section 1 is reserved.
+
+3. Contributions
+
+   By proposing a change to this project (pull request, patch or suggestion),
+   you agree that the author may use, modify, publish and distribute it as
+   part of the project, under this licence or any other, without owing you
+   anything, and you confirm that you have the right to propose it.
+
+4. Third-party material
+
+   The dependencies of the project remain under their own licences. The names,
+   logos and data of Discord, AniList, MyAnimeList and Mangacollec belong to
+   their respective owners.
+
+5. No warranty
+
+   The code is provided "as is", without warranty of any kind. To the extent
+   the law allows, the author is not liable for any damage arising from it.
+
+6. Governing law and contact
+
+   This licence is governed by French law. To ask for a permission it does not
+   give, write to yatsuuw@proton.me.
