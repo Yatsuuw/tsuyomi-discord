@@ -7,6 +7,10 @@ export const HELP_COMMANDS = ['init', 'search', 'config', 'profile', 'help'] as 
 /** Where problems with the bot are reported. */
 export const ISSUES_URL = 'https://github.com/yatsuuw/tsuyomi-discord/issues';
 
+/** The two documents every user of the bot is entitled to read. */
+export const PRIVACY_URL = 'https://github.com/Yatsuuw/tsuyomi-discord/blob/master/PRIVACY.md';
+export const TERMS_URL = 'https://github.com/Yatsuuw/tsuyomi-discord/blob/master/TERMS.md';
+
 /** Discord username of the author of the bot, for those who would rather write to her. */
 export const AUTHOR_DISCORD = 'yatsuu';
 
