@@ -21,7 +21,7 @@ export const en = {
   'help.intro':
     'Tsuyomi searches AniList and shares your {platforms} profiles.\n\nIn the commands below, `<argument>` is required and `[argument]` is optional. `a|b` means you choose one of them.',
   'help.init':
-    '`setup` initialises Tsuyomi on the server: until this is done, the other commands are refused there. `remove` deletes what Tsuyomi saved about the server (its ID and the ID of its owner), after which it has to be set up again. Reserved to members with the "Manage Server" permission, and not needed in private conversations.',
+    '`setup` initialises Tsuyomi on the server: until this is done, the other commands are refused there. `remove` deletes what Tsuyomi saved about the server (its ID), after which it has to be set up again. Reserved to members with the "Manage Server" permission, and not needed in private conversations.',
   'help.search':
     'Searches AniList for an anime, a manga, a light novel, a character or a staff member. `query` is a title or a name, in any language, with or without accents. You are the only one to see the list of results: choose one in the menu, then press **{validate}** to post its sheet for everyone.',
   'help.config':
@@ -30,6 +30,8 @@ export const en = {
     'Shares, in the channel, the profile you linked with `/config`. With `user`, shares the profile that person linked instead, provided they allowed it with `/config sharing`.',
   'help.help': 'Shows this message. You are the only one to see it.',
   'help.support.title': 'A problem?',
+  'help.privacy': 'Privacy Policy',
+  'help.terms': 'Terms of Service',
   'help.support.text':
     'Open an issue on [GitHub]({url}), or contact the author of the bot on Discord: **{contact}**.',
 

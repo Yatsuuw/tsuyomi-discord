@@ -23,7 +23,7 @@ export const fr: typeof en = {
   'help.intro':
     "Tsuyomi recherche sur AniList et partage vos profils {platforms}.\n\nDans les commandes ci-dessous, `<argument>` est obligatoire et `[argument]` est facultatif. `a|b` signifie qu'il faut en choisir un.",
   'help.init':
-    "`setup` initialise Tsuyomi sur le serveur : tant que ce n'est pas fait, les autres commandes y sont refusées. `remove` supprime ce que Tsuyomi a enregistré sur le serveur (son identifiant et celui de son propriétaire) : il faudra ensuite l'initialiser de nouveau. Réservée aux membres ayant la permission « Gérer le serveur », et inutile en conversation privée.",
+    "`setup` initialise Tsuyomi sur le serveur : tant que ce n'est pas fait, les autres commandes y sont refusées. `remove` supprime ce que Tsuyomi a enregistré sur le serveur (son identifiant) : il faudra ensuite l'initialiser de nouveau. Réservée aux membres ayant la permission « Gérer le serveur », et inutile en conversation privée.",
   'help.search':
     "Recherche sur AniList un animé, un manga, un light novel, un personnage ou un membre du staff. `query` est un titre ou un nom, dans n'importe quelle langue, avec ou sans accents. Vous êtes la seule personne à voir la liste des résultats : choisissez-en un dans le menu, puis appuyez sur **{validate}** pour publier sa fiche pour tout le monde.",
   'help.config':
@@ -32,6 +32,8 @@ export const fr: typeof en = {
     "Partage dans le salon le profil que vous avez lié avec `/config`. Avec `user`, partage à la place le profil que cette personne a lié, à condition qu'elle l'ait autorisé avec `/config sharing`.",
   'help.help': 'Affiche ce message. Vous êtes la seule personne à le voir.',
   'help.support.title': 'Un problème ?',
+  'help.privacy': 'Politique de confidentialité',
+  'help.terms': "Conditions d'utilisation",
   'help.support.text':
     "Ouvrez une issue sur [GitHub]({url}), ou contactez l'autrice du bot sur Discord : **{contact}**.",
 
