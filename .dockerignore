@@ -5,6 +5,7 @@ dist
 data
 src/generated
 *.md
+LICENSE
 .github
 compose.yaml
 *.sqlite

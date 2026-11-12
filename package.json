@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Discord bot to search anime, manga, characters and staff through AniList, and share AniList, MyAnimeList and Mangacollec profiles.",
   "private": true,
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "main": "dist/index.js",
   "engines": {
