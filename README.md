@@ -8,7 +8,7 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 
 | Command                                                 | Purpose                                                                                                                                                                                                                                                              |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/init setup`                                           | Registers the server in the database (server + owner). Until it has been run, the bot refuses to work on the server. Like `/init remove`, restricted to members with the "Manage Server" permission.                                                                 |
+| `/init setup`                                           | Registers the server in the database. Until it has been run, the bot refuses to work on the server. Like `/init remove`, restricted to members with the "Manage Server" permission.                                                                                  |
 | `/init remove`                                          | Deletes that record: the bot stops working on the server until `/init setup` is run again. The record is also deleted when the bot leaves the server.                                                                                                                |
 | `/search anime\|manga\|novel\|character\|staff <query>` | Searches AniList: 10 results per page, first / previous / next / last navigation, selection of a result, then "Validate" or "Delete". Only the person searching sees the result list; the validated sheet is posted for everyone. Accents are optional in the query. |
 | `/config lang <language>`                               | Language of the bot's replies: English, French, or "Default" to go back to the default one (English), which is used until the user chooses otherwise.                                                                                                                |
@@ -16,7 +16,7 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 | `/config sharing <allow>`                               | Lets other users share the linked profiles of the user with `/profile`, or stops them. Nobody else can share them until the user allows it.                                                                                                                          |
 | `/config delete`                                        | Deletes everything the bot saved about the user.                                                                                                                                                                                                                     |
 | `/profile anilist\|myanimelist\|mangacollec [user]`     | Shares a linked profile in an embed: the one of the person running the command, or the one of the user given if that user allowed it.                                                                                                                                |
-| `/help`                                                 | Lists the commands with their arguments and how to use them, and says where to report a problem. Only the person asking sees it. Works on servers that are not initialised yet.                                                                                      |
+| `/help`                                                 | Lists the commands with their arguments and how to use them, says where to report a problem and links the privacy policy and the terms of service. Only the person asking sees it. Works on servers that are not initialised yet.                                    |
 
 The bot also shows an activity under its name ("Watching Laid-Back Camp Season 4"), defined in `src/features/presence/model/presence.ts`.
 
@@ -137,6 +137,7 @@ src/
     help/
       model/             commands presented, where to report a problem
       usage/             ways of writing a command, read from its definition
+      fields/            one kind of help field per file (a command, support and legal links)
       embeds/            help embed
     presence/
       model/             activity shown under the name of the bot
