@@ -26,6 +26,7 @@ Commands work on initialised servers and in private conversations. Outside serve
 
 - [Privacy Policy](PRIVACY.md): what the bot stores, what it sends to AniList, and how to have data removed.
 - [Terms of Service](TERMS.md): the conditions for using the bot.
+- [Security Policy](SECURITY.md): how to report a vulnerability privately.
 - [Licence](LICENSE): the code is published to be read and improved, not reused. Proposing changes (issues, pull requests) is welcome; any other use needs the permission of the author.
 
 ## Installation
