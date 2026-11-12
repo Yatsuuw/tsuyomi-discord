@@ -12,10 +12,9 @@ datasource db {
   provider = "sqlite"
 }
 
-/// A Discord server on which the bot has been initialised with /init.
+/// A Discord server on which the bot has been initialised with /init setup.
 model Guild {
   id        String   @id
-  ownerId   String
   createdAt DateTime @default(now())
 }
 

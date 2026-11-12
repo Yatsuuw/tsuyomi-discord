@@ -11,7 +11,7 @@ import { rememberGuild } from '../services/database/rememberGuild.ts';
 import { replyEphemeral } from '../utils/discord/replyEphemeral.ts';
 
 /**
- * /init — `setup` registers the server (and its owner) so that the bot accepts to work on it, `remove`
+ * /init — `setup` registers the server so that the bot accepts to work on it, `remove`
  * deletes that record. Discord cannot run a command that has subcommands on its own: there is no bare /init.
  */
 const init: Command = {
@@ -37,7 +37,7 @@ const init: Command = {
 
   async execute(interaction, { t }) {
     if (!interaction.inCachedGuild()) throw new UserError('error.guildOnly');
-    const { id, ownerId } = interaction.guild;
+    const { id } = interaction.guild;
 
     if (interaction.options.getSubcommand() === 'remove') {
       await forgetGuild(id);
@@ -45,7 +45,7 @@ const init: Command = {
       return;
     }
 
-    await rememberGuild(id, ownerId);
+    await rememberGuild(id);
     await replyEphemeral(interaction, t('init.success'));
   },
 };
