@@ -13,13 +13,13 @@ This policy explains what Tsuyomi ("the bot"), a Discord bot made and operated f
 
 ## Data the bot stores
 
-| Data                                                         | When                                          | Why                                         |
-| ------------------------------------------------------------ | --------------------------------------------- | ------------------------------------------- |
-| Your Discord user ID                                         | The first time you use `/config`              | To find your settings again                 |
-| The language you chose                                       | `/config lang`                                | To answer you in that language              |
-| Your AniList, MyAnimeList and Mangacollec usernames          | `/config` followed by the name of the website | To share the profile when `/profile` is run |
-| That you let other users share your profiles                 | `/config sharing`, when you allow it          | To let them post your profiles              |
-| The ID of a server, the Discord user ID of its owner, a date | When a server manager runs `/init setup`      | To know the bot was set up, and for whom    |
+| Data                                                | When                                          | Why                                         |
+| --------------------------------------------------- | --------------------------------------------- | ------------------------------------------- |
+| Your Discord user ID                                | The first time you use `/config`              | To find your settings again                 |
+| The language you chose                              | `/config lang`                                | To answer you in that language              |
+| Your AniList, MyAnimeList and Mangacollec usernames | `/config` followed by the name of the website | To share the profile when `/profile` is run |
+| That you let other users share your profiles        | `/config sharing`, when you allow it          | To let them post your profiles              |
+| The ID of a server and a date                       | When a server manager runs `/init setup`      | To know the bot was set up there            |
 
 Nothing else is written to the database. It is a single file kept on a server operated by the author, located in France, of which the author may keep backup copies.
 
@@ -53,7 +53,7 @@ A sheet validated after a `/search` is public too. Everything else the bot answe
 Data is kept for as long as the feature it serves needs it, and deleted afterwards, as both the General Data Protection Regulation and the [Discord Developer Terms of Service](https://support-dev.discord.com/hc/en-us/articles/8562894815383-Discord-Developer-Terms-of-Service) require.
 
 - **Your settings** are kept until you remove them. As long as one of them remains (a language, a linked profile, or the permission to share), so does the entry holding your Discord user ID. Once none remains, or when you run `/config delete`, the whole entry is deleted: the bot does not keep a user ID with nothing attached to it.
-- **The record of a server** (its ID and the user ID of its owner) is kept for as long as the bot is on the server. It is deleted when a server manager runs `/init remove`, when the bot is removed from the server or when the server is deleted; if the bot was stopped at that moment, the next time it starts.
+- **The record of a server** (its ID and the date it was set up) is kept for as long as the bot is on the server. It is deleted when a server manager runs `/init remove`, when the bot is removed from the server or when the server is deleted; if the bot was stopped at that moment, the next time it starts.
 - **Backup copies** of the database may still hold deleted data until they are replaced.
 
 ## Your choices and rights
