@@ -13,8 +13,9 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 | `/search anime\|manga\|novel\|character\|staff <query>` | Searches AniList: 10 results per page, first / previous / next / last navigation, selection of a result, then "Validate" or "Delete". Only the person searching sees the result list; the validated sheet is posted for everyone. Accents are optional in the query. |
 | `/config lang <language>`                               | Language of the bot's replies: English, French, or "Default" to go back to the default one (English), which is used until the user chooses otherwise.                                                                                                                |
 | `/config anilist\|myanimelist\|mangacollec [username]`  | Links a profile. Without a username, the profile is unlinked. A user with no setting left is deleted from the database.                                                                                                                                              |
+| `/config sharing <allow>`                               | Lets other users share the linked profiles of the user with `/profile`, or stops them. Nobody else can share them until the user allows it.                                                                                                                          |
 | `/config delete`                                        | Deletes everything the bot saved about the user.                                                                                                                                                                                                                     |
-| `/profile anilist\|myanimelist\|mangacollec [user]`     | Shares a linked profile in an embed: the one of the person running the command, or the one of the user given.                                                                                                                                                        |
+| `/profile anilist\|myanimelist\|mangacollec [user]`     | Shares a linked profile in an embed: the one of the person running the command, or the one of the user given if that user allowed it.                                                                                                                                |
 | `/help`                                                 | Lists the commands with their arguments and how to use them, and says where to report a problem. Only the person asking sees it. Works on servers that are not initialised yet.                                                                                      |
 
 The bot also shows an activity under its name ("Watching Laid-Back Camp Season 4"), defined in `src/features/presence/model/presence.ts`.
@@ -130,6 +131,9 @@ src/
       platforms/         one platform per file (+ index.ts listing them)
       share/             what sharing a profile involves: finding the linked username, saying who shares it
       embeds/            profile embeds
+    settings/
+      model/             contract of a /config subcommand, constants
+      actions/           one /config subcommand per file
     help/
       model/             commands presented, where to report a problem
       usage/             ways of writing a command, read from its definition
