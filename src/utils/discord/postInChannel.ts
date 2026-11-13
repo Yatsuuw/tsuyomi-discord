@@ -1,5 +1,6 @@
-import { type BaseInteraction, PermissionFlagsBits, RESTJSONErrorCodes, Routes } from 'discord.js';
+import { type BaseInteraction, RESTJSONErrorCodes, Routes } from 'discord.js';
 import type { PictureMessage } from './attachEmbedImages.ts';
+import { canPostInChannel } from './canPostInChannel.ts';
 import { hasErrorCode } from './hasErrorCode.ts';
 
 export interface ChannelPost extends PictureMessage {
@@ -7,32 +8,26 @@ export interface ChannelPost extends PictureMessage {
 }
 
 /**
- * Errors meaning the bot may not write in the channel after all, or not right now (slow mode applies to bots
- * too): it then falls back on another way.
+ * Errors meaning the bot may not write there after all, or not right now: a permission changed, slow mode
+ * (which applies to bots too), or a user who does not take private messages from it. It then falls back on
+ * another way.
  */
 const REFUSALS = [
   RESTJSONErrorCodes.MissingAccess,
   RESTJSONErrorCodes.MissingPermissions,
   RESTJSONErrorCodes.ActionCannotBePerformedDueToSlowmodeRateLimit,
+  RESTJSONErrorCodes.CannotSendMessagesToThisUser,
 ];
 
 /**
- * Posts a message of the bot's own in the channel an interaction comes from. Unlike a follow-up, such a
- * message is not shown as a reply to the interaction.
+ * Posts a message of the bot's own in the conversation an interaction comes from. Unlike a follow-up, such
+ * a message is not shown as a reply to the interaction.
  *
- * Returns `false` without posting when the bot cannot write there: it is not a member of the server (private
- * conversation, or application installed on a user account only) or it lacks a permission.
+ * Returns `false` without posting when the bot cannot write there (see `canPostInChannel`) or when Discord
+ * refuses the message.
  */
 export async function postInChannel(interaction: BaseInteraction, post: ChannelPost): Promise<boolean> {
-  if (!interaction.inCachedGuild() || !interaction.channelId) return false;
-
-  const permissions = interaction.appPermissions;
-  const maySend =
-    permissions.has(PermissionFlagsBits.SendMessages) ||
-    permissions.has(PermissionFlagsBits.SendMessagesInThreads);
-  if (!maySend || !permissions.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])) {
-    return false;
-  }
+  if (!interaction.channelId || !canPostInChannel(interaction)) return false;
 
   const files = post.files ?? [];
   try {

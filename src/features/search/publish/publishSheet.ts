@@ -8,8 +8,9 @@ import { sendWithLinksIfRefused } from '../../../utils/discord/sendWithLinksIfRe
  * Makes the sheet of a validated result public, saying who searched for it. Its pictures are sent as files
  * whenever possible, and stay links otherwise.
  *
- * Wherever the bot may write, the sheet is a message of its own. Elsewhere it is a follow-up of the private
- * selection, which Discord shows as a reply to a message nobody else can see.
+ * Wherever the bot may write (a server it belongs to, or its private conversation with the user), the sheet
+ * is a message of its own. Elsewhere it is a follow-up of the private selection, which Discord shows as a
+ * reply to a message nobody else can see.
  */
 export async function publishSheet(
   interaction: MessageComponentInteraction,
@@ -22,7 +23,7 @@ export async function publishSheet(
   };
   const withFiles = await attachEmbedImages(withLinks);
 
-  // A message of the bot's own only carries files with the "Attach Files" permission.
+  // On a server, a message of the bot's own only carries files with the "Attach Files" permission.
   const mayAttach = interaction.appPermissions.has(PermissionFlagsBits.AttachFiles);
   if (await postInChannel(interaction, mayAttach ? withFiles : withLinks)) return;
 
