@@ -6,6 +6,7 @@ import { searchAniList } from '../features/search/lookup/searchAniList.ts';
 import { SearchState } from '../features/search/model/SearchState.ts';
 import { SEARCH_TYPES, type SearchType } from '../features/search/model/types.ts';
 import { renderSearchPage } from '../features/search/page/renderSearchPage.ts';
+import { publishSheet } from '../features/search/publish/publishSheet.ts';
 
 /** English name of each search type, for the descriptions pushed to Discord. */
 const NAMES: Record<SearchType, string> = {
@@ -76,8 +77,8 @@ const search: Command = {
     if (action === 'validate') {
       const entry = entries.find(({ id }) => id === state.selectedId);
       if (!entry) throw new UserError('search.expired');
-      // A follow-up is a new message, public unless flagged otherwise; the private selection then goes away.
-      await interaction.followUp({ embeds: [entry.embed(t)] });
+      // The sheet becomes public, then the private selection goes away.
+      await publishSheet(interaction, entry.embed(t), t);
       await interaction.deleteReply();
       return;
     }
