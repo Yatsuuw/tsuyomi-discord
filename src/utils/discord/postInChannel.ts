@@ -1,22 +1,16 @@
-import {
-  type BaseInteraction,
-  DiscordAPIError,
-  type EmbedBuilder,
-  PermissionFlagsBits,
-  RESTJSONErrorCodes,
-  Routes,
-} from 'discord.js';
+import { type BaseInteraction, PermissionFlagsBits, RESTJSONErrorCodes, Routes } from 'discord.js';
+import type { PictureMessage } from './attachEmbedImages.ts';
+import { hasErrorCode } from './hasErrorCode.ts';
 
-export interface ChannelPost {
+export interface ChannelPost extends PictureMessage {
   content?: string;
-  embeds: EmbedBuilder[];
 }
 
 /**
  * Errors meaning the bot may not write in the channel after all, or not right now (slow mode applies to bots
  * too): it then falls back on another way.
  */
-const REFUSALS: (string | number)[] = [
+const REFUSALS = [
   RESTJSONErrorCodes.MissingAccess,
   RESTJSONErrorCodes.MissingPermissions,
   RESTJSONErrorCodes.ActionCannotBePerformedDueToSlowmodeRateLimit,
@@ -40,18 +34,21 @@ export async function postInChannel(interaction: BaseInteraction, post: ChannelP
     return false;
   }
 
+  const files = post.files ?? [];
   try {
     await interaction.client.rest.post(Routes.channelMessages(interaction.channelId), {
       body: {
         content: post.content,
         embeds: post.embeds.map((embed) => embed.toJSON()),
+        attachments: files.map(({ name }, id) => ({ id, filename: name })),
         // A raw request does not get the defaults of the client: mentions must be silenced here too.
         allowed_mentions: { parse: [] },
       },
+      files: files.map(({ name, attachment }) => ({ name, data: attachment })),
     });
     return true;
   } catch (error) {
-    if (error instanceof DiscordAPIError && REFUSALS.includes(error.code)) return false;
+    if (hasErrorCode(error, REFUSALS)) return false;
     throw error;
   }
 }
