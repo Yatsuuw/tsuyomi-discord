@@ -52,7 +52,7 @@ No data is sold, rented or given to anyone else.
 - **By default, only you can post your profiles.** Nobody else can make the bot show them.
 - **If you allow it with `/config sharing`**, any user of the bot who can select you (on a server you share, or in a private conversation with you) can post them too by naming you in `/profile`. You can withdraw that permission at any time with the same command.
 
-A sheet validated after a `/search` is public too. Everything else the bot answers is visible only to you.
+A sheet validated after a `/search` is public too, and says who searched for it. Everything else the bot answers is visible only to you.
 
 ## How long data is kept
 
