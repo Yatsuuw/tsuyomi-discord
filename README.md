@@ -6,21 +6,26 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 
 ## Commands
 
-| Command                                                 | Purpose                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `/init setup`                                           | Registers the server in the database. Until it has been run, the bot refuses to work on the server. Like `/init remove`, restricted to members with the "Manage Server" permission.                                                                          |
-| `/init remove`                                          | Deletes that record: the bot stops working on the server until `/init setup` is run again. The record is also deleted when the bot leaves the server.                                                                                                        |
-| `/search anime\|manga\|novel\|character\|staff <query>` | Searches AniList: 10 results per page, navigation, selection of a result, then "Validate" or "Delete". Only the person searching sees the list; the validated sheet is posted for everyone, with the name of that person. Accents are optional in the query. |
-| `/config lang <language>`                               | Language of the bot's replies: English, French, or "Default" to go back to the default one (English), which is used until the user chooses otherwise.                                                                                                        |
-| `/config anilist\|myanimelist\|mangacollec [username]`  | Links a profile. Without a username, the profile is unlinked. A user with no setting left is deleted from the database.                                                                                                                                      |
-| `/config sharing <allow>`                               | Lets other users share the linked profiles of the user with `/profile`, or stops them. Nobody else can share them until the user allows it.                                                                                                                  |
-| `/config delete`                                        | Deletes everything the bot saved about the user.                                                                                                                                                                                                             |
-| `/profile anilist\|myanimelist\|mangacollec [user]`     | Shares a linked profile in an embed: the one of the person running the command, or the one of the user given if that user allowed it. AniList avatars and banners are sent with the embed rather than linked.                                                |
-| `/help`                                                 | Lists the commands with their arguments and how to use them, says where to report a problem and links the privacy policy and the terms of service. Only the person asking sees it. Works on servers that are not initialised yet.                            |
+| Command                                                | Purpose                                                                                                                                                                                                                           |
+| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/init setup`                                          | Registers the server in the database. Until it has been run, the bot refuses to work on the server. Like `/init remove`, restricted to members with the "Manage Server" permission.                                               |
+| `/init remove`                                         | Deletes that record: the bot stops working on the server until `/init setup` is run again. The record is also deleted when the bot leaves the server.                                                                             |
+| `/search anime                                         | manga                                                                                                                                                                                                                             | novel               | character                                                                                                                             | staff <query>` | Searches AniList: 10 results per page, navigation, selection of a result, then "Validate" or "Delete". Only the person searching sees the list; the validated sheet is posted for everyone, with the name of that person. Accents are optional in the query. |
+| `/config lang <language>`                              | Language of the bot's replies: English, French, or "Default" to go back to the default one (English), which is used until the user chooses otherwise.                                                                             |
+| `/config anilist\|myanimelist\|mangacollec [username]` | Links a profile. Without a username, the profile is unlinked. A user with no setting left is deleted from the database.                                                                                                           |
+| `/config sharing <allow>`                              | Lets other users share the linked profiles of the user with `/profile`, or stops them. Nobody else can share them until the user allows it.                                                                                       |
+| `/config delete`                                       | Deletes everything the bot saved about the user.                                                                                                                                                                                  |
+| `/profile anilist                                      | myanimelist                                                                                                                                                                                                                       | mangacollec [user]` | Shares a linked profile in an embed: the one of the person running the command, or the one of the user given if that user allowed it. |
+| `/help`                                                | Lists the commands with their arguments and how to use them, says where to report a problem and links the privacy policy and the terms of service. Only the person asking sees it. Works on servers that are not initialised yet. |
 
 The bot also shows an activity under its name ("Watching Laid-Back Camp Season 4"), defined in `src/features/presence/model/presence.ts`.
 
-On a server, the bot needs no permission to answer commands. With "View Channels", "Send Messages" (and "Send Messages in Threads") and "Embed Links", the sheet of a search is posted as a message of its own; without them, it is posted as a follow-up, which Discord shows as a reply to a deleted message.
+On a server, the bot needs no permission to answer commands. Three of them improve what it shows:
+
+- **View Channels, Send Messages (and Send Messages in Threads), Embed Links**: the sheet of a search is posted as a message of its own. Without them it is a follow-up, which Discord shows as a reply to a deleted message.
+- **Attach Files**: the pictures of a sheet posted that way are sent as files.
+
+The pictures of search sheets and of AniList profiles are downloaded by the bot and sent with the embed, rather than left as links Discord has to fetch from AniList, which it sometimes fails to do. A picture that takes more than three seconds to download, weighs more than 8 MB, or that Discord refuses as a file, stays a link: the message is always sent.
 
 Commands work on initialised servers and in private conversations. Outside servers, the user must have installed the application on their account ("User Install" has to be enabled in the Discord developer portal).
 
@@ -168,7 +173,7 @@ src/
       queries/           one query per file
       model/             types of the AniList objects, constants
       format/            formatting of AniList data (titles, names, links, dates)
-    http/                JSON requests and image downloads, with timeout and error handling
+    http/                JSON requests with timeout and error handling
     database/            Prisma client and database access
 
   core/                  foundation of the bot, free of business logic
@@ -183,7 +188,8 @@ src/
     locales/             one language per file (+ index.ts listing them)
 
   utils/                 generic helpers, independent from the rest of the project
-    discord/             message components, embed fields, ephemeral replies, channel posts
+    discord/             message components, embed fields, ephemeral replies, channel posts, pictures sent as files
+    http/                image download
     text/                text shortening, clean-up (HTML tags, AniList markup) and markdown
     cache/               in-memory cache
     logging/             logger
