@@ -1,12 +1,9 @@
 import type { Translator } from '../../../i18n/translator/createTranslator.ts';
 import { type Link, linkButtons } from '../../../utils/discord/linkButtons.ts';
 import { profileEmbed } from '../embeds/profileEmbed.ts';
-import type { Platform } from '../model/types.ts';
+import type { Platform, PlatformOptions } from '../model/types.ts';
 
-export interface LinkPlatformOptions {
-  name: string;
-  pattern: RegExp;
-  color: number;
+export interface LinkPlatformOptions extends PlatformOptions {
   /** Pages of the profile, the first one being the main page. */
   links(username: string, t: Translator): [Link, ...Link[]];
 }

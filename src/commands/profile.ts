@@ -1,21 +1,19 @@
 import { createCommand } from '../core/builders/createCommand.ts';
 import type { Command } from '../core/types/Command.ts';
-import { getPlatform, platforms } from '../features/profiles/platforms/index.ts';
+import { getPlatform } from '../features/profiles/platforms/index.ts';
 import { linkedUsername } from '../features/profiles/share/linkedUsername.ts';
+import { addPlatformSubcommands } from '../features/profiles/subcommands/addPlatformSubcommands.ts';
 import { attachEmbedImages } from '../utils/discord/attachEmbedImages.ts';
 import { sendWithLinksIfRefused } from '../utils/discord/sendWithLinksIfRefused.ts';
 
 const data = createCommand('profile', 'Share a profile: yours, or the one another user linked');
-for (const [key, { name }] of Object.entries(platforms)) {
-  data.addSubcommand((subcommand) =>
-    subcommand
-      .setName(key)
-      .setDescription(`Share a ${name} profile`)
-      .addUserOption((option) =>
-        option.setName('user').setDescription(`Whose ${name} profile to share (yours when left empty)`),
-      ),
-  );
-}
+addPlatformSubcommands(data, (subcommand, { name }) =>
+  subcommand
+    .setDescription(`Share a ${name} profile`)
+    .addUserOption((option) =>
+      option.setName('user').setDescription(`Whose ${name} profile to share (yours when left empty)`),
+    ),
+);
 
 /** /profile — posts an embed sharing a profile linked with /config: the user's own, or another user's. */
 const profile: Command = {

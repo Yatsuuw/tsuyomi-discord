@@ -2,12 +2,9 @@ import { UserError } from '../../../core/errors/UserError.ts';
 import type { Translator } from '../../../i18n/translator/createTranslator.ts';
 import { type Link, linkButtons } from '../../../utils/discord/linkButtons.ts';
 import { statsProfileEmbed } from '../embeds/statsProfileEmbed.ts';
-import type { Platform, Profile, ProfileStyle } from '../model/types.ts';
+import type { Platform, PlatformOptions, Profile, ProfileStyle } from '../model/types.ts';
 
-export interface ApiPlatformOptions<U> {
-  name: string;
-  pattern: RegExp;
-  color: number;
+export interface ApiPlatformOptions<U> extends PlatformOptions {
   scoreScale: ProfileStyle['scoreScale'];
   /** Reads a user from the API of the platform; resolves with `null` when no user has that name. */
   fetchUser(username: string): Promise<U | null>;

@@ -1,7 +1,7 @@
 import { MessageFlags } from 'discord.js';
 import { createCommand } from '../core/builders/createCommand.ts';
 import type { Command } from '../core/types/Command.ts';
-import { platforms } from '../features/profiles/platforms/index.ts';
+import { addPlatformSubcommands } from '../features/profiles/subcommands/addPlatformSubcommands.ts';
 import { deleteSettings } from '../features/settings/actions/deleteSettings.ts';
 import { linkProfile } from '../features/settings/actions/linkProfile.ts';
 import { setLanguage } from '../features/settings/actions/setLanguage.ts';
@@ -29,19 +29,16 @@ data.addSubcommand((subcommand) =>
         ),
     ),
 );
-for (const [key, { name }] of Object.entries(platforms)) {
-  data.addSubcommand((subcommand) =>
-    subcommand
-      .setName(key)
-      .setDescription(`Link your ${name} profile`)
-      .addStringOption((option) =>
-        option
-          .setName('username')
-          .setDescription(`Your ${name} username (leave empty to unlink your profile)`)
-          .setMaxLength(32),
-      ),
-  );
-}
+addPlatformSubcommands(data, (subcommand, { name }) =>
+  subcommand
+    .setDescription(`Link your ${name} profile`)
+    .addStringOption((option) =>
+      option
+        .setName('username')
+        .setDescription(`Your ${name} username (leave empty to unlink your profile)`)
+        .setMaxLength(32),
+    ),
+);
 data.addSubcommand((subcommand) =>
   subcommand
     .setName('sharing')

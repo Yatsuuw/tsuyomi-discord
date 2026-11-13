@@ -17,6 +17,12 @@ export interface Platform {
   render(username: string, share: ProfileShare, t: Translator): Promise<ProfileMessage>;
 }
 
+/** What every platform is created from, whatever the way its profiles are read. */
+export interface PlatformOptions extends Pick<Platform, 'name' | 'pattern'> {
+  /** Colour of the embeds sharing a profile of the platform. */
+  color: number;
+}
+
 /** The message sharing a profile: its embed, then the buttons opening the pages of the profile. */
 export interface ProfileMessage {
   embeds: EmbedBuilder[];
