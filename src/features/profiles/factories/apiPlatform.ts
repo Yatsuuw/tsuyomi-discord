@@ -1,6 +1,7 @@
 import { UserError } from '../../../core/errors/UserError.ts';
 import type { Translator } from '../../../i18n/translator/createTranslator.ts';
 import { type Link, linkButtons } from '../../../utils/discord/linkButtons.ts';
+import { attachProfileImages } from '../embeds/attachProfileImages.ts';
 import { statsProfileEmbed } from '../embeds/statsProfileEmbed.ts';
 import type { Platform, Profile, ProfileStyle } from '../model/types.ts';
 
@@ -39,8 +40,10 @@ export function apiPlatform<U>(options: ApiPlatformOptions<U>): Platform {
     async render(username, share, t) {
       const profile = await fetchProfile(username);
       if (!profile) throw new UserError('config.userNotFound', { platform: name, username });
+      const embed = statsProfileEmbed({ platform: name, color, scoreScale }, profile, share, t);
       return {
-        embeds: [statsProfileEmbed({ platform: name, color, scoreScale }, profile, share, t)],
+        embeds: [embed],
+        files: await attachProfileImages(embed, profile),
         components: [linkButtons(links(profile, t))],
       };
     },
