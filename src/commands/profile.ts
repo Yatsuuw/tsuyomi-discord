@@ -2,6 +2,8 @@ import { createCommand } from '../core/builders/createCommand.ts';
 import type { Command } from '../core/types/Command.ts';
 import { getPlatform, platforms } from '../features/profiles/platforms/index.ts';
 import { linkedUsername } from '../features/profiles/share/linkedUsername.ts';
+import { attachEmbedImages } from '../utils/discord/attachEmbedImages.ts';
+import { sendWithLinksIfRefused } from '../utils/discord/sendWithLinksIfRefused.ts';
 
 const data = createCommand('profile', 'Share a profile: yours, or the one another user linked');
 for (const [key, { name }] of Object.entries(platforms)) {
@@ -26,7 +28,10 @@ const profile: Command = {
     const username = await linkedUsername(key, share, user);
 
     await interaction.deferReply();
-    await interaction.editReply(await platform.render(username, share, t));
+    const withLinks = await platform.render(username, share, t);
+    // The pictures of the profile are sent as files whenever possible, and stay links otherwise.
+    const withFiles = await attachEmbedImages(withLinks);
+    await sendWithLinksIfRefused(withFiles, withLinks, (message) => interaction.editReply(message));
   },
 };
 

@@ -1,5 +1,5 @@
 /** Longest time an image is given to download, in milliseconds. */
-const TIMEOUT = 5_000;
+const TIMEOUT = 3_000;
 
 /** Heaviest image accepted, in bytes: Discord refuses attachments above 10 MB. */
 const MAX_SIZE = 8 * 1024 * 1024;

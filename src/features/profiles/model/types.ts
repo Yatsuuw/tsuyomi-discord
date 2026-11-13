@@ -1,4 +1,4 @@
-import type { InteractionEditReplyOptions, User } from 'discord.js';
+import type { ActionRowBuilder, EmbedBuilder, MessageActionRowComponentBuilder, User } from 'discord.js';
 import type { Translator } from '../../../i18n/translator/createTranslator.ts';
 import type { Link } from '../../../utils/discord/linkButtons.ts';
 
@@ -14,7 +14,13 @@ export interface Platform {
    */
   resolve?(username: string): Promise<string | null>;
   /** Builds the message sharing the profile `username`. */
-  render(username: string, share: ProfileShare, t: Translator): Promise<InteractionEditReplyOptions>;
+  render(username: string, share: ProfileShare, t: Translator): Promise<ProfileMessage>;
+}
+
+/** The message sharing a profile: its embed, then the buttons opening the pages of the profile. */
+export interface ProfileMessage {
+  embeds: EmbedBuilder[];
+  components: ActionRowBuilder<MessageActionRowComponentBuilder>[];
 }
 
 /** Who is involved when a profile is shared. Both are the same person unless someone shares the profile of another user. */
