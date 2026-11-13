@@ -154,6 +154,7 @@ src/
       factories/         the two kinds of platform: read through an API, or shared as links
       mappers/           conversion of an API answer to the shared profile shape
       platforms/         one platform per file (+ index.ts listing them)
+      subcommands/       the subcommands every platform gives to /config and /profile
       share/             what sharing a profile involves: finding the linked username, saying who shares it
       embeds/            profile embeds
     settings/
