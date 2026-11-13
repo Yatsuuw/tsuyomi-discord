@@ -20,10 +20,12 @@ AniList is the only API the bot calls: MyAnimeList and Mangacollec profiles are 
 
 The bot also shows an activity under its name ("Watching Laid-Back Camp Season 4"), defined in `src/features/presence/model/presence.ts`.
 
-On a server, the bot needs no permission to answer commands. Three of them improve what it shows:
+On a server, the bot needs no permission to answer commands. Some improve what it shows:
 
 - **View Channels, Send Messages (and Send Messages in Threads), Embed Links**: the sheet of a search is posted as a message of its own. Without them it is a follow-up, which Discord shows as a reply to a deleted message.
 - **Attach Files**: the pictures of a sheet posted that way are sent as files.
+
+In its private conversation with a user, the bot also posts the sheet as a message of its own. In a private conversation between users or in a group, where it is only used through the account of someone who installed it, it cannot write by itself: the sheet stays a follow-up.
 
 The pictures of search sheets and of AniList profiles are downloaded by the bot and sent with the embed, rather than left as links Discord has to fetch from AniList, which it sometimes fails to do. A picture that takes more than three seconds to download, weighs more than 8 MB, or that Discord refuses as a file, stays a link: the message is always sent.
 
