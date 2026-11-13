@@ -47,6 +47,7 @@ export const en = {
   'search.select': 'Choose a result, then validate',
   'search.delete': 'Delete',
   'search.validate': 'Validate',
+  'search.requestedBy': 'Searched by {user}',
   'search.expired': 'This search has expired. Please run it again.',
 
   'field.titles': 'Titles',

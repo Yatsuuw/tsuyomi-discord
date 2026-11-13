@@ -49,6 +49,7 @@ export const fr: typeof en = {
   'search.select': 'Choisissez un résultat, puis validez',
   'search.delete': 'Supprimer',
   'search.validate': 'Valider',
+  'search.requestedBy': 'Recherché par {user}',
   'search.expired': 'Cette recherche a expiré. Relancez-la.',
 
   'field.titles': 'Titres',
