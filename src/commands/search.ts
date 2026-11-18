@@ -7,6 +7,7 @@ import { SearchState } from '../features/search/model/SearchState.ts';
 import { SEARCH_TYPES, type SearchType } from '../features/search/model/types.ts';
 import { renderSearchPage } from '../features/search/page/renderSearchPage.ts';
 import { publishSheet } from '../features/search/publish/publishSheet.ts';
+import { sheetMessage } from '../features/search/publish/sheetMessage.ts';
 
 /** English name of each search type, for the descriptions pushed to Discord. */
 const NAMES: Record<SearchType, string> = {
@@ -78,7 +79,7 @@ const search: Command = {
       const entry = entries.find(({ id }) => id === state.selectedId);
       if (!entry) throw new UserError('search.expired');
       // The sheet becomes public, then the private selection goes away.
-      await publishSheet(interaction, entry.embed(t), t);
+      await publishSheet(interaction, sheetMessage(entry, state.type, interaction.user, t));
       await interaction.deleteReply();
       return;
     }

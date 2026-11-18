@@ -1,10 +1,17 @@
-import { type BaseInteraction, RESTJSONErrorCodes, Routes } from 'discord.js';
+import {
+  type ActionRowBuilder,
+  type BaseInteraction,
+  type MessageActionRowComponentBuilder,
+  RESTJSONErrorCodes,
+  Routes,
+} from 'discord.js';
 import type { PictureMessage } from './attachEmbedImages.ts';
 import { canPostInChannel } from './canPostInChannel.ts';
 import { hasErrorCode } from './hasErrorCode.ts';
 
 export interface ChannelPost extends PictureMessage {
   content?: string;
+  components?: ActionRowBuilder<MessageActionRowComponentBuilder>[];
 }
 
 /**
@@ -35,6 +42,7 @@ export async function postInChannel(interaction: BaseInteraction, post: ChannelP
       body: {
         content: post.content,
         embeds: post.embeds.map((embed) => embed.toJSON()),
+        components: post.components?.map((row) => row.toJSON()),
         attachments: files.map(({ name }, id) => ({ id, filename: name })),
         // A raw request does not get the defaults of the client: mentions must be silenced here too.
         allowed_mentions: { parse: [] },
