@@ -47,6 +47,11 @@ export const en = {
   'search.select': 'Choose a result, then validate',
   'search.delete': 'Delete',
   'search.validate': 'Validate',
+  'search.open.anime': 'View the anime',
+  'search.open.manga': 'View the manga',
+  'search.open.novel': 'View the light novel',
+  'search.open.character': 'View the character',
+  'search.open.staff': 'View the staff member',
   'search.requestedBy': 'Searched by {user}',
   'search.expired': 'This search has expired. Please run it again.',
 

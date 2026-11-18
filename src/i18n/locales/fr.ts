@@ -49,6 +49,11 @@ export const fr: typeof en = {
   'search.select': 'Choisissez un résultat, puis validez',
   'search.delete': 'Supprimer',
   'search.validate': 'Valider',
+  'search.open.anime': "Voir l'animé",
+  'search.open.manga': 'Voir le manga',
+  'search.open.novel': 'Voir le light novel',
+  'search.open.character': 'Voir le personnage',
+  'search.open.staff': 'Voir le staff',
   'search.requestedBy': 'Recherché par {user}',
   'search.expired': 'Cette recherche a expiré. Relancez-la.',
 
